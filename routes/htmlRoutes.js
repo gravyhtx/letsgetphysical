@@ -1,27 +1,24 @@
 const db = require("../models/Index")
 
+const path = require("path")
+
 module.exports = function(app) {
 
-  app.get("/exercise", (req, res) => {
-    db.Exercise.find({})
-      .then(dbExercise => {
-        res.json(dbExercise);
-      })
-      .catch(err => {
-        res.json(err);
-      });
+  app.get("/", (req, res) => {
+    res.sendfile (path.join(__dirname, "..public/index.html"))
   });
 
   app.get("/stats", (req, res) => {
-    db.Stats.find({})
-      .then(dbStats => {
-        res.json(dbStats);
-      })
-      .catch(err => {
-        res.json(err);
-      });
+    res.sendfile (path.join(__dirname, "..public/stats.html"))
   });
 
+  app.get("/exercise", (req, res) => {
+    res.sendfile (path.join(__dirname, "..public/exercise.html"))
+  });
+
+  app.get("/exercise?", (req, res) => {
+    res.sendfile (path.join(__dirname, "..public/exercise.html"))
+  });
 
 
   app.get("/populatedb", (req, res) => {
